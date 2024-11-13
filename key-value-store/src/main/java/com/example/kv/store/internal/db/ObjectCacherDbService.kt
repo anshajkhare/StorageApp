@@ -18,9 +18,14 @@ class ObjectCacherDbService {
         objectDao = db.objectDao()
     }
 
-    suspend fun storeValue(key: String, value: Any) {
-        val serializedValue = Converter.fromAnyToString(value)
-        objectDao.insert(ObjectModel(key, serializedValue ?: ""))
+    suspend fun storeValue(key: String, value: Any): Boolean {
+        return try {
+            val serializedValue = Converter.fromAnyToString(value)
+            objectDao.insert(ObjectModel(key, serializedValue ?: ""))
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
     suspend fun fetchValue(key: String): Any? {
@@ -28,7 +33,8 @@ class ObjectCacherDbService {
         return serializedValue?.let { Converter.fromStringToAny(it) }
     }
 
-    suspend fun deleteValue(key: String) {
-        objectDao.delete(key)
+    suspend fun deleteValue(key: String): Boolean {
+        var deleted = objectDao.delete(key)
+        return deleted > 0
     }
 }

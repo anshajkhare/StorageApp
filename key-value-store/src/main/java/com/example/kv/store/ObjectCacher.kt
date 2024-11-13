@@ -13,8 +13,9 @@ object ObjectCacher {
         impl.initialize(context)
     }
 
-    suspend fun storeValue(key: String, value: Any) {
-        if (isInitialized) impl.storeValue(key, value)
+    suspend fun storeValue(key: String, value: Any): Boolean {
+        return if (isInitialized) impl.storeValue(key, value)
+        else false
     }
 
     suspend fun fetchValue(key: String): Any? {
@@ -26,8 +27,9 @@ object ObjectCacher {
         if (isInitialized) impl.deleteValue(key)
     }
 
-    suspend fun storeInt(key: String, value: Int) {
-        if (isInitialized) impl.storeInt(key, value)
+    suspend fun storeInt(key: String, value: Int): Boolean {
+        return if (isInitialized) impl.storeInt(key, value)
+        else false
     }
 
     suspend fun fetchInt(key: String): Int? {
@@ -35,12 +37,14 @@ object ObjectCacher {
         else null
     }
 
-    suspend fun deleteInt(key: String) {
-        if (isInitialized) impl.deleteInt(key)
+    suspend fun deleteInt(key: String): Boolean {
+        return if (isInitialized) impl.deleteInt(key)
+        else false
     }
 
-    suspend fun storeBoolean(key: String, value: Boolean) {
-        if (isInitialized) impl.storeBoolean(key, value)
+    suspend fun storeBoolean(key: String, value: Boolean): Boolean {
+        return if (isInitialized) impl.storeBoolean(key, value)
+        else false
     }
 
     suspend fun fetchBoolean(key: String): Boolean? {
@@ -48,12 +52,14 @@ object ObjectCacher {
         else null
     }
 
-    suspend fun deleteBoolean(key: String) {
-        if (isInitialized) impl.deleteBoolean(key)
+    suspend fun deleteBoolean(key: String): Boolean {
+        return if (isInitialized) impl.deleteBoolean(key)
+        else false
     }
 
-    suspend fun storeString(key: String, value: String) {
-        if (isInitialized) impl.storeString(key, value)
+    suspend fun storeString(key: String, value: String): Boolean {
+        return if (isInitialized) impl.storeString(key, value)
+        else false
     }
 
     suspend fun fetchString(key: String): String? {
@@ -61,7 +67,8 @@ object ObjectCacher {
         else null
     }
 
-    suspend fun deleteString(key: String) {
-        if (isInitialized) impl.deleteString(key)
+    suspend fun deleteString(key: String): Boolean {
+        return if (isInitialized) impl.deleteString(key)
+        else false
     }
 }

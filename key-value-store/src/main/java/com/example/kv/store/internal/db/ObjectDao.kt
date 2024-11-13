@@ -15,5 +15,5 @@ interface ObjectDao {
     suspend fun getData(key: String): ObjectModel?
 
     @Query("DELETE FROM ObjectModel WHERE `key` = :key")
-    suspend fun delete(key: String)
+    suspend fun delete(key: String): Int
 }

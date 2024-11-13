@@ -24,14 +24,14 @@ class ObjectCacherRepository(private val dbService: ObjectCacherDbService = Obje
         return cache[key] ?: dbService.fetchValue(key)?.also { cache[key] = it }
     }
 
-    suspend fun deleteValue(key: String) {
+    suspend fun deleteValue(key: String): Boolean {
         cache.remove(key)
-        dbService.deleteValue(key)
+        return dbService.deleteValue(key)
     }
 
-    suspend fun storeInt(key: String, value: Int) {
+    suspend fun storeInt(key: String, value: Int): Boolean {
         cacheInt[key] = value
-        dbService.storeValue(KeyUtils.getIntKey(key), value)
+        return dbService.storeValue(KeyUtils.getIntKey(key), value)
     }
 
     suspend fun fetchInt(key: String): Int? {
@@ -39,14 +39,14 @@ class ObjectCacherRepository(private val dbService: ObjectCacherDbService = Obje
             ?: (dbService.fetchValue(KeyUtils.getIntKey(key)) as Int?)?.also { cacheInt[key] = it }
     }
 
-    suspend fun deleteInt(key: String) {
+    suspend fun deleteInt(key: String): Boolean {
         cacheInt.remove(key)
-        dbService.deleteValue(KeyUtils.getIntKey(key))
+        return dbService.deleteValue(KeyUtils.getIntKey(key))
     }
 
-    suspend fun storeBoolean(key: String, value: Boolean) {
+    suspend fun storeBoolean(key: String, value: Boolean): Boolean {
         cacheBool[key] = value
-        dbService.storeValue(KeyUtils.getBooleanKey(key), value)
+        return dbService.storeValue(KeyUtils.getBooleanKey(key), value)
     }
 
     suspend fun fetchBoolean(key: String): Boolean? {
@@ -56,14 +56,14 @@ class ObjectCacherRepository(private val dbService: ObjectCacherDbService = Obje
             }
     }
 
-    suspend fun deleteBoolean(key: String) {
+    suspend fun deleteBoolean(key: String): Boolean {
         cacheBool.remove(key)
-        dbService.deleteValue(KeyUtils.getBooleanKey(key))
+        return dbService.deleteValue(KeyUtils.getBooleanKey(key))
     }
 
-    suspend fun storeString(key: String, value: String) {
+    suspend fun storeString(key: String, value: String): Boolean {
         cacheString[key] = value
-        dbService.storeValue(KeyUtils.getStringKey(key), value)
+        return dbService.storeValue(KeyUtils.getStringKey(key), value)
     }
 
     suspend fun fetchString(key: String): String? {
@@ -73,8 +73,8 @@ class ObjectCacherRepository(private val dbService: ObjectCacherDbService = Obje
             }
     }
 
-    suspend fun deleteString(key: String) {
+    suspend fun deleteString(key: String): Boolean {
         cacheString.remove(key)
-        dbService.deleteValue(KeyUtils.getStringKey(key))
+        return dbService.deleteValue(KeyUtils.getStringKey(key))
     }
 }
