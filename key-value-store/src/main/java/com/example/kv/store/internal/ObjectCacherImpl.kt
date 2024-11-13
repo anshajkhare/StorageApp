@@ -3,8 +3,7 @@ package com.example.kv.store.internal
 import android.content.Context
 import com.example.kv.store.internal.repository.ObjectCacherRepository
 
-class ObjectCacherImpl {
-    private val repository: ObjectCacherRepository = ObjectCacherRepository()
+class ObjectCacherImpl(private val repository: ObjectCacherRepository = ObjectCacherRepository()) {
     private lateinit var context: Context
 
     fun initialize(context: Context) {

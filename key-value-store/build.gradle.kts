@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.material)
     testImplementation(libs.junit)
+    testImplementation(libs.mockito)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
